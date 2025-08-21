@@ -2,10 +2,10 @@ package utils;
 
 public class SQRoot {
 
-    private static int getSQRoot(int num) {
-        int start = 0;
-        int end = num;
-        int mid = num / 2;
+    private static float getSQRoot(int num) {
+        float start = 0;
+        float end = num;
+        float mid = num / 2.0f;
 
         while (mid != start) {
             if (mid * mid == num) {
@@ -15,7 +15,7 @@ public class SQRoot {
             } else {
                 start = mid;
             }
-            mid = (end + start) / 2;
+            mid = (end + start) / 2.0f;
         }
 
         return num;
