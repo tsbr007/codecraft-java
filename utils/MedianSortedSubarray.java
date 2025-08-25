@@ -1,37 +1,39 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.TreeSet;
 
 public class MedianSortedSubarray {
-   
-   
-   private static Long[] findMedians(int[] var0, int var1) {
-      ArrayList var2 = new ArrayList();
 
-      for(int var3 = 2; var3 < var0.length; ++var3) {
-         TreeSet var4 = new TreeSet();
-         long var5 = 0L;
-         var4.add(var0[var3 - 2]);
-         var4.add(var0[var3 - 1]);
-         var4.add(var0[var3]);
-         ArrayList var7 = new ArrayList();
-         var7.addAll(var4);
-         if (var1 % 2 == 0) {
-            var5 = (long)(((Integer)var7.get(var1 / 2) + (Integer)var7.get((var1 + 1) / 2)) / 2);
-         } else {
-            var5 = (long)(Integer)var7.get(var1 / 2);
-         }
+    private static Long[] findMedians(int[] nums, int windowSize) {
+        List<Long> medians = new ArrayList<>();
 
-         var2.add(var5);
-      }
+        for (int i = 2; i < nums.length; i++) {
+            TreeSet<Integer> window = new TreeSet<>();
+            long medianValue = 0L;
 
-      return (Long[])var2.toArray(new Long[0]);
-   }
+            window.add(nums[i - 2]);
+            window.add(nums[i - 1]);
+            window.add(nums[i]);
 
-   public static void main(String[] var0) {
-      int[] var1 = new int[]{1, 3, -1, -3, 5, 3, 6, 7};
-      byte var2 = 3;
-      System.out.println(Arrays.toString(findMedians(var1, var2)));
-   }
+            ArrayList<Integer> sortedWindow = new ArrayList<>(window);
+
+            if (windowSize % 2 == 0) {
+                medianValue = ((long) sortedWindow.get(windowSize / 2) +
+                               (long) sortedWindow.get((windowSize - 1) / 2)) / 2;
+            } else {
+                medianValue = (long) sortedWindow.get(windowSize / 2);
+            }
+
+            medians.add(medianValue);
+        }
+
+        return medians.toArray(new Long[0]);
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{1, 3, -1, -3, 5, 3, 6, 7};
+        int windowSize = 3;
+        System.out.println(Arrays.toString(findMedians(nums, windowSize)));
+    }
 }
-
